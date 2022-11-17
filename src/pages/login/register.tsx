@@ -1,31 +1,36 @@
 import React from 'react';
 import { ProCard, ProForm, ProFormText } from '@ant-design/pro-components';
-import { PostLogin } from '@/service/common/login';
+import { PostRegister } from '@/service/common/login';
 import { message } from 'antd';
 import { history } from '@umijs/max';
-import { Link } from '@umijs/max';
+import { Link } from '@@/exports';
 
 export default function Page() {
   return (
     <div className="min-h-screen min-w-screen bg-red-300">
-      <div className="flex items-center justify-center pt-20">
+      <div className="flex min-h-full items-center justify-center pt-20">
         <ProCard
           style={{ marginBlockStart: 75, maxWidth: 400 }}
           gutter={8}
-          title="登录"
+          title="注册"
           direction="column"
           hoverable
           bordered
-          extra={<Link to="/register">跳转至注册</Link>}
+          extra={<Link to="/login">跳转至登录</Link>}
         >
           <ProForm<{
             userName: string;
             password: string;
+            againPassword: string;
           }>
             onFinish={async (values) => {
-              await PostLogin(values.userName, values.password);
-              message.success('登录成功');
-              history.push('/home');
+              if (values.againPassword !== values.password) {
+                message.error('密码不一致');
+                return;
+              }
+              await PostRegister(values.userName, values.password);
+              message.success('注册成功了~');
+              history.push('/login');
             }}
             submitter={{
               resetButtonProps: {
@@ -41,7 +46,7 @@ export default function Page() {
                     key="submit"
                     onClick={() => props.form?.submit?.()}
                   >
-                    登录账号
+                    注册账号
                   </button>,
                 ];
               },
@@ -64,6 +69,15 @@ export default function Page() {
                 required
                 label="密码"
                 placeholder="请输入密码"
+              />
+            </ProForm.Group>
+            <ProForm.Group>
+              <ProFormText.Password
+                width="md"
+                name="againPassword"
+                required
+                label="重复密码"
+                placeholder="请再次输入密码"
               />
             </ProForm.Group>
           </ProForm>

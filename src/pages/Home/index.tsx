@@ -1,6 +1,15 @@
+import { PostLogout } from '@/service/common/login';
+import { useModel } from '@@/plugin-model';
+
 const HomePage: React.FC = () => {
+  const { refresh } = useModel('@@initialState');
+  refresh();
   return (
-    <h1>你好</h1>
+    <div>
+      <button type="button" onClick={() => PostLogout()}>
+        推出
+      </button>
+    </div>
   );
 };
 
