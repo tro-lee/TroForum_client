@@ -9,14 +9,16 @@ export default defineConfig({
   layout: {
     title: 'TroTro的论坛',
   },
-
+  extraPostCSSPlugins: [
+    require('tailwindcss'),
+  ],
   routes: [
     {
       path: '/',
       redirect: '/home',
     },
     {
-      name: '首页',
+      name: '欢迎',
       path: '/home',
       component: './Home',
     },
@@ -31,9 +33,8 @@ export default defineConfig({
       path: '/login',
       component: './login',
       layout: false,
-    },
+    }
   ],
-
   npmClient: 'pnpm',
   tailwindcss: {},
 });
