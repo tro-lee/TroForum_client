@@ -18,7 +18,7 @@ export default defineConfig({
       redirect: '/home',
     },
     {
-      name: '欢迎',
+      name: '主页',
       path: '/home',
       component: './Home',
     },

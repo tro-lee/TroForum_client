@@ -2,16 +2,33 @@
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
-import {message, notification} from 'antd';
+import {Button, message} from 'antd';
 import {RequestConfig} from '@@/plugin-request/request';
 import {history} from '@umijs/max';
 import {PostSelectAccount} from '@/service/account/account';
-import { useModel } from '@umijs/max';
-import {catchError} from "rxjs";
+import {useModel} from '@umijs/max';
+import PostButton from './components/PostButton';
+import {PostLogout} from "@/service/common/login";
 
 export async function getInitialState(): Promise<{ name: string; id: string }> {
     const account = await PostSelectAccount();
     return {name: account.userName, id: account.userId};
+}
+
+const ExitButton = () => {
+    return (
+        <Button
+            style={{backgroundColor: "#FF8888", color: "white"}}
+            type="text"
+            onClick={async () => {
+                await PostLogout()
+                message.success("拜拜了")
+                history.push('/login')
+            }}
+        >
+            退出
+        </Button>
+    )
 }
 
 export const layout = () => {
@@ -22,7 +39,7 @@ export const layout = () => {
         layout: 'side',
         //菜单标题下方区域
         menuExtraRender: () => {
-            return ;
+            return;
         },
         //用户
         avatarProps: {
@@ -30,12 +47,18 @@ export const layout = () => {
             size: 'large',
             title: initialState.name
         },
+        actionsRender: () => {
+            return [
+                <PostButton key="PostButton"/>,
+                <ExitButton key="ExitButton"/>
+            ]
+        },
         rightRender: () => {
             return false;
         },
         //菜单页脚
         menuFooterRender: () => {
-            return ;
+            return;
         },
     };
 };

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ProCard } from '@ant-design/pro-components';
-import {PostLogin, PostRegister} from '@/service/common/login';
+import {PostRegister} from '@/service/common/login';
 import { history } from '@umijs/max';
 import { Link } from '@umijs/max';
 import './index.css'
