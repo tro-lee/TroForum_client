@@ -1,16 +1,7 @@
-import { PostLogout } from '@/service/common/login';
-import { useModel } from '@@/plugin-model';
+import TopicPostBubble from '@/components/TopicPostBubble';
 
 const HomePage: React.FC = () => {
-  const { refresh } = useModel('@@initialState');
-  refresh();
-  return (
-    <div>
-      <button type="button" onClick={() => PostLogout()}>
-        推出
-      </button>
-    </div>
-  );
+  return <TopicPostBubble />;
 };
 
 export default HomePage;

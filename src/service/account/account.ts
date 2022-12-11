@@ -11,3 +11,10 @@ export function PostSelectAccount() {
     data: {},
   });
 }
+
+export function SelectAccountById(userId: string) {
+  return request<any>('/api/selectAccountById', {
+    method: 'POST',
+    data: userId,
+  });
+}

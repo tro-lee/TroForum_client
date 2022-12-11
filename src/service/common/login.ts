@@ -1,10 +1,8 @@
 //注册账号
-
-import { ResponseData } from '@/service/ApiType';
 import { request } from '@@/plugin-request';
 
 export function PostRegister(userName: string, password: string) {
-  return request<ResponseData<any>>('/api/register', {
+  return request<any>('/api/register', {
     method: 'POST',
     data: {
       userName: userName,
@@ -14,7 +12,7 @@ export function PostRegister(userName: string, password: string) {
 }
 
 export function PostLogin(userName: string, password: string) {
-  return request<ResponseData<any>>('/api/login', {
+  return request<any>('/api/login', {
     method: 'POST',
     data: {
       userName: userName,

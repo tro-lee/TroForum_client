@@ -14,6 +14,7 @@
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.1",
     "@umijs/max": "^4.0.26",
+    "ahooks": "^3.1.13",
     "antd": "^4.20.7"
   },
   "devDependencies": {
