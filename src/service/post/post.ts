@@ -6,7 +6,6 @@ export function PostInsertTopicPost(
   content: string,
   title: string,
   theme: string,
-  introduction: string,
 ) {
   return request<any>('/api/post/topicPost', {
     method: 'POST',
@@ -15,7 +14,6 @@ export function PostInsertTopicPost(
       content: content,
       title: title,
       theme: theme,
-      introduction: introduction,
     },
   });
 }
@@ -40,11 +38,9 @@ export type TopicPostPage = {
   authorId: string;
   content: string;
   createdTime: Date;
-  deleted: boolean;
   likes: number;
   title: string;
   theme: string;
-  introduction: string;
   clickRate: number;
   userName: string;
 };
