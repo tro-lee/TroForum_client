@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {GetTopicPostPage, TopicPostPage} from '@/service/post/post';
 import "./TopicPostBubble.css"
+import {history} from "@umijs/max";
 
 const TopicPostBubble = () => {
     //帖子
@@ -75,7 +76,8 @@ const TopicPostBubble = () => {
                 }}
             >
                 {listData.slice(startIndex, endIndex).map((item, index) => {
-                        return (
+                        // @ts-ignore
+                    return (
                             <div
                                 className="border-t hover:border-gray-900 hover:text-red-300"
                                 key={index}
@@ -85,6 +87,9 @@ const TopicPostBubble = () => {
                                     top: 10,
                                     width: '100%',
                                     transform:  `translateY(${(startIndex + index) * itemHeight}px)`,
+                                }}
+                                onClick={() => {
+                                    history.push('/topicPost/' + item.postId);
                                 }}
                             >
                                 <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>
