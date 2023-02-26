@@ -2,33 +2,17 @@
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { RequestConfig } from '@@/plugin-request/request';
 import { history } from '@umijs/max';
 import { PostSelectAccount } from '@/service/account/account';
 import PostButton from './components/PostButton';
-import { PostLogout } from '@/service/common/login';
+import ExitButton from "@/components/ExitButton";
 
 export async function getInitialState(): Promise<{ name: string; id: string }> {
   const account = await PostSelectAccount();
   return { name: account.userName, id: account.userId };
 }
-
-const ExitButton = () => {
-  return (
-    <Button
-      style={{ backgroundColor: '#FF8888', color: 'white' }}
-      type="text"
-      onClick={async () => {
-        await PostLogout();
-        message.success('拜拜了');
-        history.push('/login');
-      }}
-    >
-      退出
-    </Button>
-  );
-};
 
 export const layout = () => {
   return {
@@ -45,7 +29,7 @@ export const layout = () => {
       size: 'large',
     },
     actionsRender: () => {
-      return [<PostButton key="PostButton" />, <ExitButton key="ExitButton" />];
+      return [<ExitButton key="ExitButton" />];
     },
     rightRender: () => {
       return false;
@@ -83,6 +67,10 @@ export const request: RequestConfig = {
         case 501:
           message.error('未登录账号');
           history.push('/login');
+          break;
+        case 502:
+          message.error('不小心进入神秘领域');
+          history.push('/topicPostPage');
           break;
       }
       return response.data;

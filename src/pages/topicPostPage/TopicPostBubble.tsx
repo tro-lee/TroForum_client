@@ -1,13 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {GetTopicPostPage, TopicPostPage} from '@/service/post/post';
 import "./TopicPostBubble.css"
-import {history} from "@umijs/max";
 
-const TopicPostBubble = () => {
+const TopicPostBubble = (props: any) => {
+    //获取传递的方法
+    const {setPostId} = props
     //帖子
     const [listData, setListData] = useState(Array<TopicPostPage>);
     //页
-    const [page, setPage] = useState({current: 1, size: 9, total: 5, pageNum: 0});
+    const [page, setPage] = useState({current: 1, size: 9, total: 8, pageNum: 0});
     //元素高度
     const itemHeight = 90;
     const screenH = window.screen.height;
@@ -47,10 +48,10 @@ const TopicPostBubble = () => {
         if ( listData.length * itemHeight - scrollTop - screenH < 400 && !isRequest ) {
             isRequest = true;
             if ( page.current === page.pageNum ) {
-                GetTopicPostPage(0, page.size).then((it) => {
-                    setPage({current: it.page, size: it.size, total: it.total, pageNum: it.page_num});
-                    setListData(listData.concat(it.value));
-                });
+                if ( slider.current.scrollTop > itemHeight * listData.length - screenH + 400) {
+                    // @ts-ignore
+                    slider.current.scrollTop = itemHeight * listData.length - screenH + 300;
+                }
             } else {
                 GetTopicPostPage(page.current + 1, page.size).then((it) => {
                     setPage({current: it.page, size: it.size, total: it.total, pageNum: it.page_num});
@@ -89,7 +90,7 @@ const TopicPostBubble = () => {
                                     transform:  `translateY(${(startIndex + index) * itemHeight}px)`,
                                 }}
                                 onClick={() => {
-                                    history.push('/topicPost/' + item.postId);
+                                    setPostId(item.postId)
                                 }}
                             >
                                 <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>

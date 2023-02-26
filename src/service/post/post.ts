@@ -7,7 +7,7 @@ export function PostInsertTopicPost(
   title: string,
   theme: string,
 ) {
-  return request<any>('/api/post/topicPost', {
+  return request<any>('/api/post/insTopicPost', {
     method: 'POST',
     data: {
       authorId: authorId,
@@ -23,7 +23,7 @@ export function PostInsertReplyPost(
   content: string,
   master: string,
 ) {
-  return request<any>('/api/post/replyPost', {
+  return request<any>('/api/post/insReplyPost', {
     method: 'POST',
     data: {
       authorId: authorId,
@@ -36,7 +36,6 @@ export function PostInsertReplyPost(
 export type TopicPostPage = {
   postId: string;
   authorId: string;
-  content: string;
   createdTime: Date;
   likes: number;
   title: string;
@@ -58,4 +57,26 @@ export function GetTopicPostPage(
       keyword: keyword,
     },
   });
+}
+
+export type TopicPost = {
+  content: string;
+  postId: string;
+  authorId: string;
+  createdTime: Date;
+  likes: number;
+  title: string;
+  theme: string;
+  clickRate: number;
+  userName: string;
+}
+
+export function GetTopicPost(postId: string) {
+  console.log(postId);
+  return request<TopicPost>('/api/post/getTopicPost', {
+    method: 'POST',
+    data: {
+      postId: postId
+    }
+  })
 }

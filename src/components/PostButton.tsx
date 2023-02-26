@@ -18,7 +18,7 @@ const PostButton = () => {
             title="我要发帖~"
             trigger={
                 <Button
-                    style={{backgroundColor: 'white', color: '#FF8888'}}
+                    style={{color: '#FF8888'}}
                     type="text"
                 >
                     发帖

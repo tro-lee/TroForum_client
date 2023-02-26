@@ -15,17 +15,17 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/topicPostPage',
     },
     {
       name: '主页',
-      path: '/home',
-      component: './Home',
+      path: '/topicPostPage',
+      component: './topicPostPage',
     },
     {
       name: '注册',
       path: '/register',
-      component: './login/register',
+      component: './login/Register',
       layout: false,
     },
     {
