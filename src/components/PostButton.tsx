@@ -79,7 +79,7 @@ const PostButton = () => {
                 fieldProps={{
                     bordered: false,
                     allowClear: false,
-                    maxLength: 32,
+                    maxLength: 12,
                     size: 'large',
                 }}
             />

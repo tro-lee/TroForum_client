@@ -96,8 +96,7 @@ const TopicPostBubble = (props: any) => {
                                 <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>
                                 <div className="text-sm inline-block text-gray-400">{item.createdTime}</div>
                                 <div/>
-                                <div className="top-2 ml-5 w-4/5 text-4xl inline-block">{item.title}</div>
-                                <div className="text-1xl inline-block text-gray-400">👍{item.likes}</div>
+                                <div className="top-2 ml-5 w-4/5 text-4xl inline-block truncate">{item.title}</div>
                             </div>
                         )
                     }

@@ -72,7 +72,6 @@ export type TopicPost = {
 }
 
 export function GetTopicPost(postId: string) {
-  console.log(postId);
   return request<TopicPost>('/api/post/getTopicPost', {
     method: 'POST',
     data: {

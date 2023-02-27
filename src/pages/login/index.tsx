@@ -81,7 +81,7 @@ export default function Page() {
                                 onClick={async () => {
                                     setLoading(true);
                                     await PostLogin(name, password)
-                                        .then(() => history.push('/topicPostPage'))
+                                        .then(() => history.push('/home'))
                                         .catch(() => setLoading(false));
                                 }}
                             >

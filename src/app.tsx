@@ -6,7 +6,6 @@ import { message } from 'antd';
 import { RequestConfig } from '@@/plugin-request/request';
 import { history } from '@umijs/max';
 import { PostSelectAccount } from '@/service/account/account';
-import PostButton from './components/PostButton';
 import ExitButton from "@/components/ExitButton";
 
 export async function getInitialState(): Promise<{ name: string; id: string }> {
@@ -70,7 +69,7 @@ export const request: RequestConfig = {
           break;
         case 502:
           message.error('不小心进入神秘领域');
-          history.push('/topicPostPage');
+          history.push('/home');
           break;
       }
       return response.data;

@@ -1,5 +1,6 @@
 import {GetTopicPost, TopicPost} from "@/service/post/post";
 import React, {useEffect, useState} from "react";
+import TopicPostTemplate from "@/components/PostTemplate";
 
 const TopicPostContent = (props: any) => {
     const {postId} = props;
@@ -47,19 +48,7 @@ const TopicPostContent = (props: any) => {
                 </div>
             ) : (
                 <div>
-                    <div className="text-4xl text-red-400 inline">
-                        {data.title}
-                    </div>
-                    <div className="absolute text-xl right-20 text-gray-400 inline">
-                        作者：{data.userName}
-                    </div>
-                    <div className="text-sm 有">
-
-                    </div>
-                    <div className="h-10"></div>
-                    <div className="text-1xl whitespace-pre-wrap">
-                        {data.content}
-                    </div>
+                    <TopicPostTemplate data={data}/>
                 </div>
             )}
         </div>
