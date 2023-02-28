@@ -1,6 +1,28 @@
 import { request } from '@@/plugin-request';
 import { PageType } from '@/service/ApiType';
 
+export type TopicPost = {
+  content: string;
+  postId: string;
+  authorId: string;
+  createdTime: Date;
+  likes: number;
+  title: string;
+  theme: string;
+  clickRate: number;
+  userName: string;
+}
+
+export type ReplyPost = {
+  postId: string;
+  authorId: string;
+  content: string;
+  createdTime: Date;
+  likes: number;
+  master: string;
+  userName: string;
+};
+
 export function PostInsertTopicPost(
   authorId: string,
   content: string,
@@ -33,23 +55,12 @@ export function PostInsertReplyPost(
   });
 }
 
-export type TopicPostPage = {
-  postId: string;
-  authorId: string;
-  createdTime: Date;
-  likes: number;
-  title: string;
-  theme: string;
-  clickRate: number;
-  userName: string;
-};
-
 export function GetTopicPostPage(
   current: number = 0,
   size: number = 5,
   keyword: string = '',
 ) {
-  return request<PageType<TopicPostPage>>('/api/post/topicPostPage', {
+  return request<PageType<TopicPost>>('/api/post/topicPostPage', {
     method: 'POST',
     data: {
       current: current,
@@ -59,16 +70,19 @@ export function GetTopicPostPage(
   });
 }
 
-export type TopicPost = {
-  content: string;
-  postId: string;
-  authorId: string;
-  createdTime: Date;
-  likes: number;
-  title: string;
-  theme: string;
-  clickRate: number;
-  userName: string;
+export function GetReplyPostPage(
+    postId: string,
+    current: number = 0,
+    size: number = 7,
+) {
+  return request<PageType<ReplyPost>>('/api/post/replyPostPage', {
+    method: 'POST',
+    data: {
+      current: current,
+      size: size,
+      postId: postId,
+    },
+  });
 }
 
 export function GetTopicPost(postId: string) {

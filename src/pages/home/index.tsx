@@ -1,11 +1,13 @@
 import TopicPostBubble from '@/pages/home/TopicPostBubble';
-import PostButton from "@/components/PostButton";
-import TopicPostContent from "@/pages/home/TopicPostContent";
-import {useState} from "react";
-import "./indexTopicPostContent.css"
+import TopicPostButton from "@/pages/home/TopicPostButton";
+import TopicPostContent from "@/pages/home/afterClick/TopicPostContent";
+import React, {useState} from "react";
+import "./afterClick/indexTopicPostContent.css"
+import ReplyPostButton from "@/pages/home/afterClick/ReplyPostButton";
+import ReplyPostBubble from "@/pages/home/afterClick/ReplyPostBubble";
 
 const HomePage: any = () => {
-    const [postId, setPostId] = useState(0)
+    const [postId, setPostId] = useState(0);
     return (
         <div>
             <div className="text-3xl mb-6 font-bold text-red-400 ">
@@ -13,7 +15,7 @@ const HomePage: any = () => {
                     postId === 0 ?
                         <div>
                             主题广场
-                            <PostButton/>
+                            <TopicPostButton/>
                         </div> :
                         <div onClick={() => {
                             setPostId(0)
@@ -22,15 +24,22 @@ const HomePage: any = () => {
                         </div>
                 }
             </div>
-            <div className="w-2/5 bg-gray-50 rounded-lg">
-                {
-                    postId === 0 ?
-                        <TopicPostBubble setPostId={setPostId}/> :
-                        <div>1</div>
-                }
-            </div>
-
-            <div className="absolute inset-y-20 right-10 w-1/2 min-h-screen" style={{overflow: "scroll"}} id="ScrollStyle">
+            {
+                postId === 0 ?
+                    <div className="w-2/5 bg-gray-50 rounded-lg">
+                        <TopicPostBubble setPostId={setPostId}/>
+                    </div> :
+                    <div>
+                        <div className="w-2/5 bg-gray-50 rounded-lg">
+                            <ReplyPostButton key={postId} postId={postId}/>
+                        </div>
+                        <div className="w-2/5 min-h-screen">
+                            <ReplyPostBubble postId={postId}/>
+                        </div>
+                    </div>
+            }
+            <div className="absolute inset-y-20 right-10 w-1/2 min-h-screen" style={{overflow: "scroll"}}
+                 id="ScrollStyle">
                 {
                     postId === 0 ?
                         <div className="text-3xl">好坏</div> :

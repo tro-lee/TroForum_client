@@ -1,11 +1,10 @@
 import {GetTopicPost, TopicPost} from "@/service/post/post";
 import React, {useEffect, useState} from "react";
-import TopicPostTemplate from "@/components/PostTemplate";
+import TopicPostTemplate from "@/components/TopicPostTemplate";
 
 const TopicPostContent = (props: any) => {
     const {postId} = props;
     const [loading, setLoading] = useState(true);
-
     // @ts-ignore
     const [data, setData] = useState<TopicPost>({
         authorId: "",

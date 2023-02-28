@@ -7,7 +7,7 @@ import {
 import {PostInsertTopicPost} from '@/service/post/post';
 import {useModel} from '@@/exports';
 
-const PostButton = () => {
+const TopicPostButton = () => {
     const {initialState} = useModel('@@initialState');
     return (
         <ModalForm<{
@@ -61,6 +61,7 @@ const PostButton = () => {
                         return ;
                     }
                     await PostInsertTopicPost(
+                        // @ts-ignore
                         initialState.id,
                         values.content,
                         values.title,
@@ -100,4 +101,4 @@ const PostButton = () => {
         </ModalForm>
     );
 };
-export default PostButton;
+export default TopicPostButton;
