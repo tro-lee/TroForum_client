@@ -6,9 +6,11 @@ import {
 } from '@ant-design/pro-components';
 import {PostInsertTopicPost} from '@/service/post/post';
 import {useModel} from '@@/exports';
+import React from "react";
 
-const TopicPostButton = () => {
-    const {initialState} = useModel('@@initialState');
+const TopicPostButton = (props: any) => {
+    const {userId} = useModel('global');
+    const {setUpdate} = props;
     return (
         <ModalForm<{
             title: string;
@@ -56,20 +58,20 @@ const TopicPostButton = () => {
             onFinish={async (values) => {
                 try {
                     // @ts-ignore
-                    if (!values.content || !values.title ) {
+                    if (!values.content || !values.title) {
                         message.error('内容残缺');
-                        return ;
+                        return;
                     }
                     await PostInsertTopicPost(
-                        // @ts-ignore
-                        initialState.id,
+                        userId,
                         values.content,
                         values.title,
                         '暂无',
                     );
                 } catch (e) {
                 }
-                message.success('发帖成功~记得刷新一下页面嗷');
+                setUpdate(1);
+                message.success('发帖成功~');
                 return true;
             }}
         >

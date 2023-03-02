@@ -5,7 +5,6 @@ import TopicPostTemplate from "@/components/TopicPostTemplate";
 const TopicPostContent = (props: any) => {
     const {postId} = props;
     const [loading, setLoading] = useState(true);
-    // @ts-ignore
     const [data, setData] = useState<TopicPost>({
         authorId: "",
         clickRate: 0,
@@ -18,7 +17,6 @@ const TopicPostContent = (props: any) => {
         content: "暂无"
     });
     useEffect(() => {
-        // @ts-ignore
         GetTopicPost(postId).then(it => {
             setData(it);
             setLoading(false)

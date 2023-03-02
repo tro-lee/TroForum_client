@@ -5,12 +5,10 @@
 import { message } from 'antd';
 import { RequestConfig } from '@@/plugin-request/request';
 import { history } from '@umijs/max';
-import { PostSelectAccount } from '@/service/account/account';
 import ExitButton from "@/components/ExitButton";
 
-export async function getInitialState(): Promise<{ name: string; id: string }> {
-  const account = await PostSelectAccount();
-  return { name: account.userName, id: account.userId };
+export async function getInitialState() {
+  return 1;
 }
 
 export const layout = () => {

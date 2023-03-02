@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {GetTopicPostPage, TopicPost} from '@/service/post/post';
 import "./TopicPostBubble.css"
+import {dateDiff} from '@/service/common/time';
 
 const TopicPostBubble = (props: any) => {
     //加载
     const [loading, setLoading] = useState(true);
-    //获取传递的方法
-    const {setPostId} = props
+    //获取传递的参数
+    const {setPostId, update, setUpdate} = props;
     //帖子
     const [listData, setListData] = useState(Array<TopicPost>);
     //页
@@ -14,17 +15,29 @@ const TopicPostBubble = (props: any) => {
     //元素高度
     const itemHeight = 90;
     const screenH = window.screen.height;
-    //初始获取数据
-    useEffect(() => {
+    const slider = useRef(null);
+
+    //更新方法
+    const updateData = () => {
         setLoading(true);
-        GetTopicPostPage(page.current, page.size).then((it) => {
+        GetTopicPostPage(1, 9).then((it) => {
             setPage({current: it.page, size: it.size, total: it.total, pageNum: it.page_num});
             setListData(it.value);
             setLoading(false);
         });
-    }, [])
+        // @ts-ignore
+        slider.current.scrollTop = 0;
+    }
 
-    const slider = useRef(null);
+    //刷新
+    if (update) {
+        updateData();
+        setUpdate(0);
+    }
+    //初始获取数据
+    useEffect(() => {
+        updateData();
+    }, [])
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(9);
 
@@ -97,6 +110,7 @@ const TopicPostBubble = (props: any) => {
                     <span className="sr-only">加载中...</span>
                 </div>
             ) : (<div/>)}
+
             <div className="main" ref={slider} onScroll={throttle(scroll, 200)}>
                 <div
                     className="wrap"
@@ -105,7 +119,6 @@ const TopicPostBubble = (props: any) => {
                     }}
                 >
                     {listData.slice(startIndex, endIndex).map((item, index) => {
-                            // @ts-ignore
                             return (
                                 <div
                                     className="border-t hover:border-gray-900 hover:text-red-300"
@@ -121,12 +134,8 @@ const TopicPostBubble = (props: any) => {
                                         setPostId(item.postId)
                                     }}
                                 >
-                                    <div
-                                        className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>
-                                    <div className="text-sm inline-block text-gray-400"
-                                        // @ts-ignore
-                                    >{item.createdTime}</div>
-                                    <div/>
+                                    <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>
+                                    <div className="text-sm inline-block text-gray-400">{dateDiff(item.createdTime, new Date().getTime())}</div>
                                     <div className="top-2 ml-5 w-4/5 text-4xl inline-block truncate">{item.title}</div>
                                 </div>
                             )

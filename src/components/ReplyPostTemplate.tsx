@@ -1,3 +1,6 @@
+import {dateDiff} from "@/service/common/time";
+import React from "react";
+
 const ReplyPostTemplate = (props: any) => {
   const { data } = props;
   const avatarLink = `https://api.multiavatar.com/${
@@ -12,6 +15,7 @@ const ReplyPostTemplate = (props: any) => {
       <div className="text-xl font-bold text-gray-400 relative">
         {data.userName}
       </div>
+        <div className="text-sm inline-block text-gray-400">{dateDiff(data.createdTime, new Date().getTime())}</div>
     </div>
   );
 };
