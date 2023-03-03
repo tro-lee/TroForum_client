@@ -59,8 +59,8 @@ const ReplyPostBubble = (props: any) => {
                                     <ReplyPostTemplate data={item}/>
                                 </div>
                             );
-                        })}
-
+                        })
+                    }
                     {
                         //下面页标签
                         Array.from({length: pageNum}, (_, i) => i).map((item, index) => (
@@ -83,7 +83,8 @@ const ReplyPostBubble = (props: any) => {
                                     });
                                 }}
                             />
-                        ))}
+                        ))
+                    }
                 </div>
             )}
         </div>

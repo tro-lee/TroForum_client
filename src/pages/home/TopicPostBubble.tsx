@@ -2,12 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import {GetTopicPostPage, TopicPost} from '@/service/post/post';
 import "./TopicPostBubble.css"
 import {dateDiff} from '@/service/common/time';
+import {history} from "@umijs/max";
 
 const TopicPostBubble = (props: any) => {
     //加载
     const [loading, setLoading] = useState(true);
     //获取传递的参数
-    const {setPostId, update, setUpdate} = props;
+    const {update, setUpdate} = props;
     //帖子
     const [listData, setListData] = useState(Array<TopicPost>);
     //页
@@ -131,7 +132,7 @@ const TopicPostBubble = (props: any) => {
                                         transform: `translateY(${(startIndex + index) * itemHeight}px)`,
                                     }}
                                     onClick={() => {
-                                        setPostId(item.postId)
+                                        history.push(`/post/${item.postId}`)
                                     }}
                                 >
                                     <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">{item.userName}</div>

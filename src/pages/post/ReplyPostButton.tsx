@@ -5,7 +5,6 @@ import {message} from 'antd';
 
 const ReplyPostButton = (props: any) => {
     const {postId, setUpdate} = props;
-    // @ts-ignore
     const {userId} = useModel('global');
     const [content, setContent] = useState('');
     const avatarLink = `https://api.multiavatar.com/${userId + postId}.png`;

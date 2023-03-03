@@ -33,6 +33,12 @@ export default defineConfig({
       path: '/login',
       component: './login',
       layout: false,
+    },
+    {
+      name: '帖子页',
+      path: '/post/:postId',
+      component: './post',
+      hideInMenu: true
     }
   ],
   npmClient: 'pnpm',

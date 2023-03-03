@@ -4,11 +4,13 @@ import {PostLogin} from '@/service/common/login';
 import {history} from '@umijs/max';
 import {Link} from '@umijs/max';
 import './index.css';
+import {useModel} from "@@/exports";
 
 export default function Page() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const {update} = useModel('global');
     return (
         <div className="min-h-screen min-w-screen bg-red-300">
             <div className="flex items-center justify-center pt-20">
@@ -81,7 +83,10 @@ export default function Page() {
                                 onClick={async () => {
                                     setLoading(true);
                                     await PostLogin(name, password)
-                                        .then(() => history.push('/home'))
+                                        .then(() => {
+                                            update();
+                                            history.push('/home');
+                                        })
                                         .catch(() => setLoading(false));
                                 }}
                             >
