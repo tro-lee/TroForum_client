@@ -1,29 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {GetReplyPostPage, ReplyPost} from '@/service/post/post';
+import {GetReplyPostPage} from '@/service/post/post';
 import ReplyPostTemplate from '@/components/ReplyPostTemplate';
-import {PageType} from '@/service/ApiType';
 
 const ReplyPostBubble = (props: any) => {
+    const {postId, setMasterData, update, setUpdate} = props;
     const [loading, setLoading] = useState(true);
-    const {postId, update, setUpdate} = props;
     const [data, setData] = useState([]);
-    const [page, setPage] = useState<PageType<ReplyPost>>();
+    const [page, setPage] = useState(1);
     const [pageNum, setPageNum] = useState(0);
     const updateData = () => {
+        setUpdate(false);
         setLoading(true);
-        GetReplyPostPage(postId).then((res) => {
+        GetReplyPostPage(postId, page).then((res) => {
             // @ts-ignore
             setData(res.value);
-            setPage(res);
             setPageNum(res.page_num);
             setLoading(false);
         });
     };
 
-    if (update) {
-        updateData();
-        setUpdate(0);
-    }
+    useEffect(() => {
+        if (update) {
+            updateData();
+        }
+    })
 
     useEffect(() => {
         updateData();
@@ -56,7 +56,7 @@ const ReplyPostBubble = (props: any) => {
                         data.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <ReplyPostTemplate data={item}/>
+                                    <ReplyPostTemplate data={item} setMasterData={setMasterData}/>
                                 </div>
                             );
                         })
@@ -68,17 +68,17 @@ const ReplyPostBubble = (props: any) => {
                                 key={index}
                                 className={`m-3 w-7 h-7 ${
                                     // @ts-ignore
-                                    page?.page - 1 === index ? 'bg-gray-600' : 'bg-gray-300'
+                                    page === index + 1 ? 'bg-gray-600' : 'bg-gray-300'
                                 } inline-flex text-2xl cursor-pointer`}
                                 onClick={() => {
                                     // @ts-ignore
-                                    if (page?.page - 1 === index) return;
+                                    if (page === index + 1) return;
                                     setLoading(true);
                                     GetReplyPostPage(postId, index + 1).then((res) => {
                                         setLoading(false);
                                         // @ts-ignore
                                         setData(res.value);
-                                        setPage(res);
+                                        setPage(res.page);
                                         setPageNum(res.page_num);
                                     });
                                 }}

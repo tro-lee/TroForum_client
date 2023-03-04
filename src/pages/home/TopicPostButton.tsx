@@ -70,7 +70,7 @@ const TopicPostButton = (props: any) => {
                     );
                 } catch (e) {
                 }
-                setUpdate(1);
+                setUpdate(true);
                 message.success('发帖成功~');
                 return true;
             }}

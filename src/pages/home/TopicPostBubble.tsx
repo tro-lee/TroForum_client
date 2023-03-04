@@ -20,6 +20,7 @@ const TopicPostBubble = (props: any) => {
 
     //更新方法
     const updateData = () => {
+        setUpdate(false);
         setLoading(true);
         GetTopicPostPage(1, 9).then((it) => {
             setPage({current: it.page, size: it.size, total: it.total, pageNum: it.page_num});
@@ -31,10 +32,12 @@ const TopicPostBubble = (props: any) => {
     }
 
     //刷新
-    if (update) {
-        updateData();
-        setUpdate(0);
-    }
+    useEffect(() => {
+        if (update) {
+            updateData();
+        }
+    })
+
     //初始获取数据
     useEffect(() => {
         updateData();
