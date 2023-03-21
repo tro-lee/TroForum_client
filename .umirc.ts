@@ -9,9 +9,7 @@ export default defineConfig({
   layout: {
     title: 'TroTro的论坛',
   },
-  extraPostCSSPlugins: [
-    require('tailwindcss'),
-  ],
+  extraPostCSSPlugins: [require('tailwindcss')],
   routes: [
     {
       path: '/',
@@ -38,8 +36,13 @@ export default defineConfig({
       name: '帖子页',
       path: '/post/:postId',
       component: './post',
-      hideInMenu: true
-    }
+      hideInMenu: true,
+    },
+    {
+      name: '个人中心',
+      path: '/setting',
+      component: './setting',
+    },
   ],
   npmClient: 'pnpm',
   tailwindcss: {},

@@ -5,7 +5,8 @@
 import { message } from 'antd';
 import { RequestConfig } from '@@/plugin-request/request';
 import { history } from '@umijs/max';
-import ExitButton from "@/components/ExitButton";
+import ExitButton from '@/components/ExitButton';
+import React from 'react';
 
 export async function getInitialState() {
   return 1;
@@ -33,7 +34,11 @@ export const layout = () => {
     },
     //菜单页脚
     menuFooterRender: () => {
-      return;
+      return (
+        <a href="http://ruibest.club" className="cursor-pointer">
+          点我去神秘的地方
+        </a>
+      );
     },
   };
 };

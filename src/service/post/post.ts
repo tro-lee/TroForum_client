@@ -11,8 +11,7 @@ export type TopicPost = {
   theme: string;
   clickRate: number;
   userName: string;
-  relatedNum: number;
-}
+};
 
 export type ReplyPost = {
   postId: string;
@@ -22,9 +21,8 @@ export type ReplyPost = {
   likes: number;
   master: string;
   userName: string;
-  ReplyName: string,
-  replyData: Array<ReplyPost>
-  relatedNum: number;
+  ReplyName: string;
+  replyData: Array<ReplyPost>;
 };
 
 export function PostInsertTopicPost(
@@ -48,7 +46,7 @@ export function PostInsertReplyPost(
   authorId: string,
   content: string,
   master: string,
-  masterUserId: string
+  masterUserId: string,
 ) {
   return request<any>('/api/post/insReplyPost', {
     method: 'POST',
@@ -56,7 +54,7 @@ export function PostInsertReplyPost(
       authorId: authorId,
       content: content,
       master: master,
-      masterUserId: masterUserId
+      masterUserId: masterUserId,
     },
   });
 }
@@ -77,9 +75,9 @@ export function GetTopicPostPage(
 }
 
 export function GetReplyPostPage(
-    postId: string,
-    current: number = 1,
-    size: number = 5,
+  postId: string,
+  current: number = 1,
+  size: number = 5,
 ) {
   return request<PageType<ReplyPost>>('/api/post/replyPostPage', {
     method: 'POST',
@@ -95,7 +93,7 @@ export function GetTopicPost(postId: string) {
   return request<TopicPost>('/api/post/getTopicPost', {
     method: 'POST',
     data: {
-      postId: postId
-    }
-  })
+      postId: postId,
+    },
+  });
 }

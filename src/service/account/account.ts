@@ -18,3 +18,23 @@ export function SelectAccountById(userId: string) {
     data: userId,
   });
 }
+
+//修改密码
+export function UpdatePassword(password: string) {
+  return request<any>('/api/updatePassword', {
+    method: 'POST',
+    data: {
+      password: password,
+    },
+  });
+}
+
+//修改用户id
+export function UpdateUserName(userName: string) {
+  return request<any>('/api/updateUserName', {
+    method: 'POST',
+    data: {
+      userName: userName,
+    },
+  });
+}
