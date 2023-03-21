@@ -4,18 +4,16 @@ import React from "react";
 const ReplyPostTemplate = (props: any) => {
     const {data, setMasterData} = props;
     return (
-        <div className="mt-4 bg-gray-100 p-2 rounded-lg hover:bg-gray-200">
+        <div className="mt-4 bg-gray-100 p-2 rounded-lg hover:bg-gray-200 cursor-pointer"
+             onClick={() => {
+                 setMasterData[0](data.postId);
+                 setMasterData[1](data.authorId);
+                 setMasterData[2](data.userName);
+                 window.scrollTo(0, 0)
+             }}>
             <img src={`https://api.multiavatar.com/${data.authorId + data.master}.png`} alt="" className="w-10 h-10 inline"/>
             <div className="ml-8 text-xl inline break-words text-center whitespace-pre-wrap">
                 {data.content}
-            </div>
-            <div className="cursor-pointer float-right text-gray-400" onClick={() => {
-                setMasterData[0](data.postId);
-                setMasterData[1](data.authorId);
-                setMasterData[2](data.userName);
-                window.scrollTo(0, 0)
-            }}>
-                回复
             </div>
             <div className="text-xl font-bold text-gray-400 relative">
                 {data.userName}

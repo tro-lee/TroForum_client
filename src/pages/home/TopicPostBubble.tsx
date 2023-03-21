@@ -1,148 +1,147 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { GetTopicPostPage, TopicPost } from '@/service/post/post';
+import React, {useEffect, useRef, useState} from 'react';
+import {GetTopicPostPage, TopicPost} from '@/service/post/post';
 import './TopicPostBubble.css';
-import { dateDiff } from '@/service/common/time';
-import { history } from '@umijs/max';
+import {dateDiff} from '@/service/common/time';
+import {history} from '@umijs/max';
 
 const TopicPostBubble = (props: any) => {
-  /*
-   * 1.获取帖子
-   * 2.滚动加载
-   * 3.搜索
-   * 4.点击跳转
-   */
+    /*
+     * 1.获取帖子
+     * 2.滚动加载
+     * 3.搜索
+     * 4.点击跳转
+     */
 
-  //加载
-  const [loading, setLoading] = useState(true);
+    //加载
+    const [loading, setLoading] = useState(true);
 
-  //获取传递的参数
-  const { update, setUpdate } = props;
+    //获取传递的参数
+    const {update, setUpdate} = props;
 
-  //帖子
-  const [listData, setListData] = useState(Array<TopicPost>);
+    //帖子
+    const [listData, setListData] = useState(Array<TopicPost>);
 
-  //页
-  const [page, setPage] = useState({
-    current: 1,
-    size: 9,
-    total: 8,
-    pageNum: 0,
-  });
-
-  //元素高度
-  const itemHeight = 90;
-  const screenH = window.screen.height;
-  const slider = useRef(null);
-
-  //搜索值
-  const [search, setSearch] = useState('');
-
-  //窗口标签
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(9);
-  //是否请求
-  let isRequest = false;
-
-  //防抖搜索
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('触发组件，search值为：', search);
-      setUpdate(true);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [search]);
-
-  //更新方法
-  const updateData = () => {
-    setUpdate(false);
-    setLoading(true);
-    GetTopicPostPage(1, 9, search).then((it) => {
-      setPage({
-        current: it.page,
-        size: it.size,
-        total: it.total,
-        pageNum: it.page_num,
-      });
-      setListData(it.value.sort(() => Math.random() - 0.5));
-      setLoading(false);
+    //页
+    const [page, setPage] = useState({
+        current: 1,
+        size: 9,
+        total: 8,
+        pageNum: 0,
     });
-    // @ts-ignore
-    slider.current.scrollTop = 0;
-  };
 
-  //刷新
-  useEffect(() => {
-    if (update) {
-      updateData();
-    }
-  });
+    //元素高度
+    const itemHeight = 90;
+    const screenH = window.screen.height;
+    const slider = useRef(null);
 
-  //初始获取数据
-  useEffect(() => {
-    updateData();
-  }, []);
+    //搜索值
+    const [search, setSearch] = useState('');
 
-  //作用：防抖
-  function throttle(func: any, delay: number) {
-    let timer: NodeJS.Timeout | null = null;
-    return () => {
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const context = this;
-      const args = arguments;
-      if (!timer) {
-        timer = setTimeout(function () {
-          func.apply(context, args);
-          timer = null;
-        }, delay);
-      }
-    };
-  }
+    //窗口标签
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(9);
+    //是否请求
+    let isRequest = false;
 
-  //滚动加载
-  const scroll = () => {
-    // @ts-ignore
-    const scrollTop = slider.current.scrollTop;
-    if (
-      listData.length * itemHeight - scrollTop - screenH < 400 &&
-      !isRequest
-    ) {
-      isRequest = true;
-      if (page.current === page.pageNum) {
-        // @ts-ignore
-        if (
-          slider.current.scrollTop >
-          itemHeight * listData.length - screenH + 400
-        ) {
-          // @ts-ignore
-          slider.current.scrollTop =
-            itemHeight * listData.length - screenH + 300;
-        }
-      } else {
+    //防抖搜索
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setUpdate(true);
+        }, 200);
+        return () => clearTimeout(timer);
+    }, [search]);
+
+    //更新方法
+    const updateData = () => {
+        setUpdate(false);
         setLoading(true);
-        GetTopicPostPage(page.current + 1, page.size, search).then((it) => {
-          setPage({
-            current: it.page,
-            size: it.size,
-            total: it.total,
-            pageNum: it.page_num,
-          });
-          setListData(
-            listData.concat(it.value.sort(() => Math.random() - 0.5)),
-          );
-          setLoading(false);
+        GetTopicPostPage(1, 9, search).then((it) => {
+            setPage({
+                current: it.page,
+                size: it.size,
+                total: it.total,
+                pageNum: it.page_num,
+            });
+            setListData(it.value.sort(() => Math.random() - 0.5));
+            setLoading(false);
         });
-      }
-    }
-    let currentStartIndex = Math.floor(scrollTop / itemHeight);
-    let currentEndIndex = currentStartIndex + Math.ceil(screenH / itemHeight);
-    if (currentStartIndex === startIndex && currentEndIndex === endIndex)
-      return;
-    requestAnimationFrame(() => {
-      setStartIndex(currentStartIndex);
-      setEndIndex(currentEndIndex);
+        // @ts-ignore
+        slider.current.scrollTop = 0;
+    };
+
+    //刷新
+    useEffect(() => {
+        if (update) {
+            updateData();
+        }
     });
-  };
+
+    //初始获取数据
+    useEffect(() => {
+        updateData();
+    }, []);
+
+    //作用：防抖
+    function throttle(func: any, delay: number) {
+        let timer: NodeJS.Timeout | null = null;
+        return () => {
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            const context = this;
+            const args = arguments;
+            if (!timer) {
+                timer = setTimeout(function () {
+                    func.apply(context, args);
+                    timer = null;
+                }, delay);
+            }
+        };
+    }
+
+    //滚动加载
+    const scroll = () => {
+        // @ts-ignore
+        const scrollTop = slider.current.scrollTop;
+        if (
+            listData.length * itemHeight - scrollTop - screenH < 400 &&
+            !isRequest
+        ) {
+            isRequest = true;
+            if (page.current === page.pageNum) {
+                if (
+                    // @ts-ignore
+                    slider.current.scrollTop >
+                    itemHeight * listData.length - screenH + 400
+                ) {
+                    // @ts-ignore
+                    slider.current.scrollTop =
+                        itemHeight * listData.length - screenH + 300;
+                }
+            } else {
+                setLoading(true);
+                GetTopicPostPage(page.current + 1, page.size, search).then((it) => {
+                    setPage({
+                        current: it.page,
+                        size: it.size,
+                        total: it.total,
+                        pageNum: it.page_num,
+                    });
+                    setListData(
+                        listData.concat(it.value.sort(() => Math.random() - 0.5)),
+                    );
+                    setLoading(false);
+                });
+            }
+        }
+        let currentStartIndex = Math.floor(scrollTop / itemHeight);
+        let currentEndIndex = currentStartIndex + Math.ceil(screenH / itemHeight);
+        if (currentStartIndex === startIndex && currentEndIndex === endIndex)
+            return;
+        requestAnimationFrame(() => {
+            setStartIndex(currentStartIndex);
+            setEndIndex(currentEndIndex);
+        });
+    };
 
   return (
     <div>
@@ -151,12 +150,12 @@ const TopicPostBubble = (props: any) => {
           className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
           type="search"
           name="search"
-          placeholder="Search"
+          placeholder="搜索一些好玩的"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {loading ? (
+      {loading ?
         <div role="status" className="text-center w-1/2 inline">
           <svg
             className="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-purple-600"
@@ -174,51 +173,49 @@ const TopicPostBubble = (props: any) => {
             />
           </svg>
           <span className="sr-only">加载中...</span>
-        </div>
-      ) : (
-        <div />
-      )}
+        </div> : <div />
+      }
 
-      <div className="main" ref={slider} onScroll={throttle(scroll, 200)}>
-        <div
-          className="wrap"
-          style={{
-            height: listData.length * itemHeight * 2,
-          }}
-        >
-          {listData.slice(startIndex, endIndex).map((item, index) => {
-            return (
-              <div
-                className="border-t hover:border-gray-900 hover:text-red-300"
-                key={index}
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 10,
-                  width: '100%',
-                  transform: `translateY(${
-                    (startIndex + index) * itemHeight
-                  }px)`,
-                }}
-                onClick={() => {
-                  history.push(`/post/${item.postId}`);
-                }}
-              >
-                <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">
-                  {item.userName}
+            <div className="main" ref={slider} onScroll={throttle(scroll, 200)}>
+                <div
+                    className="wrap"
+                    style={{
+                        height: listData.length * itemHeight * 2,
+                    }}
+                >
+                    {listData.slice(startIndex, endIndex).map((item, index) => {
+                        return (
+                            <div
+                                className="border-t hover:border-gray-900 hover:text-red-300"
+                                key={index}
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 10,
+                                    width: '100%',
+                                    transform: `translateY(${
+                                        (startIndex + index) * itemHeight
+                                    }px)`,
+                                }}
+                                onClick={() => {
+                                    history.push(`/post/${item.postId}`);
+                                }}
+                            >
+                                <div className="ml-5 w-1/3 text-2xl inline-block text-gray-400">
+                                    {item.userName}
+                                </div>
+                                <div className="text-sm inline-block text-gray-400">
+                                    {dateDiff(item.createdTime, new Date().getTime())}
+                                </div>
+                                <div className="top-2 ml-5 w-4/5 text-3xl inline-block truncate">
+                                    {item.title}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
-                <div className="text-sm inline-block text-gray-400">
-                  {dateDiff(item.createdTime, new Date().getTime())}
-                </div>
-                <div className="top-2 ml-5 w-4/5 text-4xl inline-block truncate">
-                  {item.title}
-                </div>
-              </div>
-            );
-          })}
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 export default TopicPostBubble;

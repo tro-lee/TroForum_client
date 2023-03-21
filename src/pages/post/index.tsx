@@ -6,9 +6,15 @@ import {history} from '@umijs/max';
 import {useParams} from "@@/exports";
 
 export default () => {
-    //整体思路
-    //updateR用来button发送后，更新帖子
-    //masterUserId和master用来回复
+    /*
+    * 整体思路：
+    * 1. 通过useParams获取当前帖子的id
+    * 2. 通过useState设置主帖的id，主帖的用户名，主帖的用户id
+    * 3. 通过useState设置是否更新帖子
+    * 4. 通过ReplyPostButton组件设置主帖的id，主帖的用户名，主帖的用户id
+    * 5. 通过ReplyPostBubble组件设置是否更新帖子
+    * 6. 通过TopicPostContent组件设置帖子的id
+     */
     const params = useParams();
     const [master, setMaster] = useState(params.postId);
     const [masterUserName, setMasterUserName] = useState("主帖");
