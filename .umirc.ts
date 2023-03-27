@@ -40,6 +40,17 @@ export default defineConfig({
     },
     {
       name: '个人中心',
+      path: '/person',
+      component: './person',
+    },
+    {
+      name: '个人信息',
+      path: '/person/:userId',
+      component: './person/Person',
+      hideInMenu: true,
+    },
+    {
+      name: '设置',
       path: '/setting',
       component: './setting',
     },

@@ -74,6 +74,21 @@ export function GetTopicPostPage(
   });
 }
 
+export function GetTopicPostPageByAuthor(
+  current: number = 0,
+  size: number = 5,
+  authorId: string = '',
+) {
+  return request<PageType<TopicPost>>('/api/post/topicPostPageByAuthor', {
+    method: 'POST',
+    data: {
+      current: current,
+      size: size,
+      authorId: authorId,
+    },
+  });
+}
+
 export function GetReplyPostPage(
   postId: string,
   current: number = 1,
