@@ -3,14 +3,14 @@ import { useParams } from '@@/exports';
 import React, { useEffect, useState } from 'react';
 import { Account, SelectAccountById } from '@/service/account/account';
 import PersonTopicPost from '@/pages/person/PersonTopicPost';
-import PersonOrAddFriend from '@/pages/person/PersonOrAddFriend';
+import PersonOrFollow from '@/pages/person/PersonOrFollow';
 import BackButton from '@/components/BackButton';
-import { CheckRelation } from '@/service/relation/relation';
+import { checkRelation } from '@/service/relation/relation';
 
 export default () => {
   const params = useParams();
   const [account, setAccount] = useState<Account>({ userId: '', userName: '' });
-  const [friendType, setFriendType] = useState(-1);
+  const [type, setType] = useState(0);
   useEffect(() => {
     // @ts-ignore
     SelectAccountById(params.userId).then((res) => {
@@ -20,8 +20,8 @@ export default () => {
       });
     });
     // @ts-ignore
-    CheckRelation(params.userId).then((res) => {
-      setFriendType(res);
+    checkRelation(params.userId).then((res) => {
+      setType(res);
     });
   }, []);
   console.log(account);
@@ -30,11 +30,11 @@ export default () => {
       <div className="w-1/3">
         <BackButton />
         <div>
-          <PersonOrAddFriend
+          <PersonOrFollow
             userId={account.userId}
             userName={account.userName}
-            friendType={friendType}
-            setFriendType={setFriendType}
+            type={type}
+            setType={setType}
           />
         </div>
       </div>

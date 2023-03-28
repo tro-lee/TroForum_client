@@ -1,4 +1,4 @@
-export const friendshipPoems = [
+export const followershipPoems = [
   '相逢一笑泯恩仇，人生何处不相逢。',
   '愿得一人心，白首不相离。',
   '无为在歧路，儿女共沾巾。',

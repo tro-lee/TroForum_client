@@ -2,7 +2,6 @@ import React from 'react';
 
 const NoticeBoard = () => {
   const notices = [
-    '个人主页',
     '重要: 好友系统',
     '私信系统',
     '消息系统',

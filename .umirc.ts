@@ -39,6 +39,11 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
+      name: '好友系统',
+      path: '/friend',
+      component: './friend',
+    },
+    {
       name: '个人中心',
       path: '/person',
       component: './person',
