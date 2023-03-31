@@ -1,17 +1,18 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {getPublicChatPage, insertPublicChat} from "@/service/chat/chat";
+import React, {useEffect, useRef, useState} from "react";
+import {getPrivateChatPage, insertPrivateChat} from "@/service/chat/chat";
 import {message} from "antd";
-import SockJsClient from 'react-stomp'
 import {IP} from "@/constants";
 import {Message} from "@/service/ApiType";
+import SockJsClient from 'react-stomp'
 
-const Chat = () => {
+const PrivateChat = (props: any) => {
     /*
     * 1.获取chat信息
     * 2.连接WebSocket服务器
     * 3.发送消息
     * 4.滚轮刷新
      */
+    const {relationId, update, setUpdate} = props;
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [online, setOnline] = useState(false);
@@ -27,10 +28,10 @@ const Chat = () => {
         pageNum: 0,
     });
 
-    //初始加载
-    useEffect(() => {
+    //更新
+    const updateData = () => {
         // 获取chat信息
-        getPublicChatPage(0, 6).then(res => {
+        getPrivateChatPage(0, 6, '', relationId).then(res => {
             setPage({
                 current: res.page,
                 size: res.size,
@@ -39,7 +40,20 @@ const Chat = () => {
             })
             setMessages(res.value);
         })
+    }
+
+    //初始加载
+    useEffect(() => {
+        updateData();
     }, []);
+
+    //检测更新
+    useEffect(() => {
+        if (update) {
+            setUpdate(false);
+            updateData();
+        }
+    });
 
     //发送消息
     const sendMessage = async () => {
@@ -47,11 +61,11 @@ const Chat = () => {
             message.error('请输入消息');
             return;
         }
-        if (inputValue.length > 100) {
-            message.error('消息长度不能超过100');
+        if (inputValue.length > 300) {
+            message.error('消息长度不能超过300');
             return;
         }
-        await insertPublicChat(inputValue).then(() => {
+        await insertPrivateChat(inputValue, relationId).then(() => {
             // @ts-ignore
             chatBoxRef.current.scrollTop = 0;
             setInputValue('');
@@ -65,7 +79,7 @@ const Chat = () => {
         const scrollTop = chatBoxRef.current.scrollTop;
         if (scrollTop < -(messages.length - 3) * 90 && request && page.pageNum !== page.current) {
             setRequest(false);
-            getPublicChatPage(page.current + 1, 6).then(res => {
+            getPrivateChatPage(page.current + 1, 6, '', relationId).then(res => {
                 setPage({
                     current: res.page,
                     size: res.size,
@@ -96,10 +110,10 @@ const Chat = () => {
     }
 
     return (
-        <div className="h-96 p-4 bg-white rounded-lg shadow-lg border border-gray-300">
+        <div className="mt-10 w-full h-96 p-4 bg-white rounded-lg shadow-lg border border-gray-300">
             <SockJsClient
                 url={IP + '/ws'}
-                topics={[`/topic/publicChat`]}
+                topics={[`/queue/privateChat/${relationId}`]}
                 onMessage={(res) => {
                     console.log(res);
                     setMessages(messages => [...messages, res]);
@@ -156,4 +170,4 @@ const Chat = () => {
     );
 }
 
-export default Chat;
+export default PrivateChat;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { followershipPoems, hatredPoems } from './sentence';
+import { followershipPoems, hatredPoems } from '@/components/sentence';
 import { message } from 'antd';
 import {deleteFollower, follow} from "@/service/relation/relation";
 

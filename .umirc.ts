@@ -39,9 +39,9 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
-      name: '好友系统',
-      path: '/friend',
-      component: './friend',
+      name: '关注系统',
+      path: '/follow',
+      component: './follow',
     },
     {
       name: '个人中心',

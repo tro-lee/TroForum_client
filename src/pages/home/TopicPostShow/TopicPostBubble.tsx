@@ -3,6 +3,7 @@ import { GetTopicPostPage, TopicPost } from '@/service/post/post';
 import './TopicPostBubble.css';
 import { dateDiff } from '@/service/common/time';
 import { history } from '@umijs/max';
+import {searchPoems} from "@/components/sentence";
 
 export function getColorCode(num: number) {
   switch (num) {
@@ -210,7 +211,7 @@ const TopicPostBubble = (props: any) => {
           className="ml-2 mb-2 w-4/5 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
           type="search"
           name="search"
-          placeholder="搜索一些好玩的"
+          placeholder={searchPoems[Math.floor(Math.random() * searchPoems.length)]}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

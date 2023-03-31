@@ -2,7 +2,7 @@ import {request} from '@umijs/max';
 
 //检查关系
 export function checkRelation(followerId: string) {
-    return request<any>('/api/checkRelation', {
+    return request<number>('/api/checkRelation', {
         method: 'POST',
         data: {
             followerId: followerId
@@ -31,8 +31,8 @@ export function deleteFollower(followerId: string) {
 }
 
 //获取关注列表
-export function getFollowList() {
-    return request<any>('/api/getFollowList', {
+export function getFollowerList() {
+    return request<any>('/api/getFollowerList', {
         method: 'POST',
     });
 }

@@ -2,7 +2,7 @@ import TopicPostBubble from '@/pages/home/TopicPostShow/TopicPostBubble';
 import TopicPostButton from '@/pages/home/TopicPostShow/TopicPostButton';
 import React, { useState } from 'react';
 import '../post/indexTopicPostContent.css';
-import { sentence } from '@/pages/home/sentence';
+import { sentence } from '@/components/sentence';
 import Chat from '@/pages/home/Chat/Chat';
 import NoticeBoard from '@/pages/home/Notices/Notices';
 

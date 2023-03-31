@@ -12,3 +12,9 @@ export type PageType<T> = {
   total: number;
   value: Array<T>;
 };
+
+export type Message = {
+  userName: string;
+  content: string;
+  createdTime: string;
+}
