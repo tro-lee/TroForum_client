@@ -4,6 +4,7 @@ import {message} from "antd";
 import SockJsClient from 'react-stomp'
 import {IP} from "@/constants";
 import {Message} from "@/service/ApiType";
+import Avatar from "@/components/Avatar";
 
 const Chat = () => {
     /*
@@ -63,7 +64,7 @@ const Chat = () => {
     const scroll = () => {
         // @ts-ignore
         const scrollTop = chatBoxRef.current.scrollTop;
-        if (scrollTop < -(messages.length - 3) * 90 && request && page.pageNum !== page.current) {
+        if (scrollTop < -(messages.length - 3) * 60 && request && page.pageNum !== page.current) {
             setRequest(false);
             getPublicChatPage(page.current + 1, 6).then(res => {
                 setPage({
@@ -109,17 +110,17 @@ const Chat = () => {
             />
 
             <div className="flex flex-col h-full">
-                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
+                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef}
+                     onScroll={throttle(scroll, 10)}>
                     {messages.slice().reverse().map((message, index) => (
-                        <div key={index} className="p-2 flex flex-col space-y-2">
-                            <div className="font-medium text-blue-600">
-                                {message.userName}
+                        <div key={index} className="p-2 flex justify-start items-start space-x-2">
+                            <div className="flex flex-col">
+                                <Avatar userId={message.authorId} size={8} avatarUrl={message.avatarUrl} />
+                                <div className="text-gray-800 font-medium ml-2">{message.authorName}</div>
                             </div>
-                            <div>
-                                {message.content}
-                            </div>
-                            <div className="text-xs">
-                                {message.createdTime}
+                            <div className="flex flex-col space-y-1">
+                                <div className="text-gray-700">{message.content}</div>
+                                <div className="text-gray-500 text-xs">{message.createdTime}</div>
                             </div>
                         </div>
                     ))}

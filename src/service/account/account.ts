@@ -3,6 +3,8 @@ import {request} from '@@/plugin-request';
 export type Account = {
     userId: string;
     userName: string;
+    avatarUrl: string;
+    description: string;
 };
 
 //获取当前用户

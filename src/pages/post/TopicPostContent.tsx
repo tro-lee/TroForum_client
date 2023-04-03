@@ -15,7 +15,8 @@ const TopicPostContent = (props: any) => {
         theme: "",
         title: "",
         userName: "",
-        content: "暂无"
+        content: "暂无",
+        avatarUrl: ""
     });
     useEffect(() => {
         GetTopicPost(postId).then(it => {

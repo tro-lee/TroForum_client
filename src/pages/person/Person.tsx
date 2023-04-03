@@ -9,7 +9,7 @@ import { checkRelation } from '@/service/relation/relation';
 
 export default () => {
   const params = useParams();
-  const [account, setAccount] = useState<Account>({ userId: '', userName: '' });
+  const [account, setAccount] = useState<Account>({ userId: '', userName: '', avatarUrl: '', description: '' });
   const [type, setType] = useState(0);
   useEffect(() => {
     // @ts-ignore
@@ -17,6 +17,8 @@ export default () => {
       setAccount({
         userId: res.userId,
         userName: res.userName,
+        avatarUrl: res.avatarUrl,
+        description: res.description,
       });
     });
     // @ts-ignore

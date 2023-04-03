@@ -3,6 +3,7 @@ import { useModel } from '@@/exports';
 import { UpdatePassword, UpdateUserName } from '@/service/account/account';
 import { message } from 'antd';
 import { history } from '@umijs/max';
+import Avatar from "@/components/Avatar";
 
 export default function Page() {
   const user = useModel('global');
@@ -53,6 +54,39 @@ export default function Page() {
       setNewPassword('');
       setConfirmPassword('');
     });
+  };
+
+  const [avatar, setAvatar] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(file);
+  };
+
+  const handleUpload = async () => {
+    if (!avatar) {
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+
+        await fetch("/api/updateAvatar", {
+            method: "POST",
+            body: formData,
+        });
+
+      setIsUploading(false);
+    } catch (error: any) {
+      setIsUploading(false);
+      setUploadError(error.message);
+    }
   };
 
   return (
@@ -166,6 +200,41 @@ export default function Page() {
             </div>
           </form>
         )}
+        <div className="relative">
+          <div className="w-32 h-32 rounded-full overflow-hidden">
+            {avatar ? (
+                <img
+                    src={URL.createObjectURL(avatar)}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                />
+            ) : (
+                <Avatar userId={user.userId}/>
+            )}
+          </div>
+
+          <div className="absolute top-full left-0 w-full bg-gray-100 border border-gray-300 rounded-lg p-4 mt-2">
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="mb-4"
+            />
+
+            <button
+                type="button"
+                onClick={handleUpload}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
+                disabled={!avatar || isUploading}
+            >
+              {isUploading ? "Uploading..." : "Upload"}
+            </button>
+
+            {uploadError && (
+                <p className="mt-4 text-red-500">{uploadError}</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

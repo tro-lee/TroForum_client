@@ -4,6 +4,7 @@ import {message} from "antd";
 import {IP} from "@/constants";
 import {Message} from "@/service/ApiType";
 import SockJsClient from 'react-stomp'
+import Avatar from "@/components/Avatar";
 
 const PrivateChat = (props: any) => {
     /*
@@ -31,7 +32,8 @@ const PrivateChat = (props: any) => {
     //更新
     const updateData = () => {
         // 获取chat信息
-        getPrivateChatPage(0, 6, '', relationId).then(res => {
+        getPrivateChatPage(0, 6, '', relationId.split("-").sort().join("-")).then(res => {
+            console.log(res);
             setPage({
                 current: res.page,
                 size: res.size,
@@ -50,6 +52,7 @@ const PrivateChat = (props: any) => {
     //检测更新
     useEffect(() => {
         if (update) {
+            setMessages([]);
             setUpdate(false);
             updateData();
         }
@@ -113,10 +116,9 @@ const PrivateChat = (props: any) => {
         <div className="mt-10 w-full h-96 p-4 bg-white rounded-lg shadow-lg border border-gray-300">
             <SockJsClient
                 url={IP + '/ws'}
-                topics={[`/queue/privateChat/${relationId}`]}
-                onMessage={(res) => {
-                    console.log(res);
-                    setMessages(messages => [...messages, res]);
+                topics={[`/queue/privateChat/${relationId.split("-").sort().join("-")}`]}
+                onMessage={() => {
+                    setUpdate(true);
                 }}
                 onConnect={() => setOnline(true)}
                 onDisconnect={() => setOnline(false)}
@@ -124,16 +126,14 @@ const PrivateChat = (props: any) => {
 
             <div className="flex flex-col h-full">
                 <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
-                    {messages.slice().reverse().map((message, index) => (
-                        <div key={index} className="p-2 flex flex-col space-y-2">
-                            <div className="font-medium text-blue-600">
-                                {message.userName}
+                    {messages.slice().map((message, index) => (
+                        <div key={index} className="p-2 flex justify-start items-start space-x-2">
+                            <div className="flex flex-col">
+                                <Avatar userId={message.authorId} size={20} avatarUrl={message.avatarUrl} />
                             </div>
-                            <div>
-                                {message.content}
-                            </div>
-                            <div className="text-xs">
-                                {message.createdTime}
+                            <div className="flex flex-col space-y-1">
+                                <div className="text-gray-700">{message.content}</div>
+                                <div className="text-gray-500 text-xs">{message.createdTime}</div>
                             </div>
                         </div>
                     ))}

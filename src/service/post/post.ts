@@ -11,6 +11,7 @@ export type TopicPost = {
   theme: string;
   clickRate: number;
   userName: string;
+  avatarUrl: string;
 };
 
 export type ReplyPost = {
@@ -23,6 +24,7 @@ export type ReplyPost = {
   userName: string;
   ReplyName: string;
   replyData: Array<ReplyPost>;
+  avatarUrl: string;
 };
 
 export function PostInsertTopicPost(
