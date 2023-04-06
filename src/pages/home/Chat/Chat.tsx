@@ -115,7 +115,7 @@ const Chat = () => {
                     {messages.slice().reverse().map((message, index) => (
                         <div key={index} className="p-2 flex justify-start items-start space-x-2">
                             <div className="flex flex-col">
-                                <Avatar userId={message.authorId} size={8} avatarUrl={message.avatarUrl} />
+                                <Avatar userId={message.authorId} size={8} avatarUrl={message.authorAvatarUrl} />
                                 <div className="text-gray-800 font-medium ml-2">{message.authorName}</div>
                             </div>
                             <div className="flex flex-col space-y-1">

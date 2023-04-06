@@ -15,6 +15,7 @@ export type PageType<T> = {
 
 export type Message = {
   avatarUrl: string;
+  authorAvatarUrl: string;
   authorId: string;
   authorName: string;
   content: string;
