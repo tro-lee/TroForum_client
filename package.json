@@ -17,6 +17,7 @@
     "@umijs/max": "^4.0.26",
     "ahooks": "^3.1.13",
     "antd": "^4.20.7",
+    "react-captcha-code": "^1.0.7",
     "react-stomp": "^5.1.0"
   },
   "devDependencies": {

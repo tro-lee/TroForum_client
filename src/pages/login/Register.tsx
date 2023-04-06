@@ -7,6 +7,7 @@ import './index.css'
 import {message} from "antd";
 import {useModel} from "@@/exports";
 import Loading from "@/components/Loading";
+import VerifyCode from "@/components/VerifyCode";
 
 export default function Page() {
     const [name, setName] = useState("");
@@ -14,6 +15,7 @@ export default function Page() {
     const [againPassword, setAgainPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const {update} = useModel('global');
+    const [verify, setVerify] = useState(false);
 
     return (
         <div className="min-h-screen min-w-screen bg-red-300">
@@ -58,12 +60,17 @@ export default function Page() {
                                    value={againPassword}
                                    onChange={e => setAgainPassword(e.target.value)}
                                    required/>
+                            <VerifyCode setVerify={setVerify}/>
                         </div>
                         {
                             loading ? <Loading/> :
                                 <button type="button"
                                         className="subButton"
                                         onClick={async () => {
+                                            if (!verify) {
+                                                message.error("验证码错误");
+                                                return;
+                                            }
                                             if (againPassword !== password) {
                                                 message.error("密码不一致");
                                                 return;

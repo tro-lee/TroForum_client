@@ -127,7 +127,7 @@ const PrivateChat = (props: any) => {
             />
 
             <div className="flex flex-col space-y-4 h-96">
-                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'gray lightgray' }}  ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
+                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
                     {messages.map((message, index) => (
                         <div key={index} className={`p-2 flex space-x-2 ${message.authorId === userId ? "justify-end items-end" : "justify-start items-start"}`}>
                             {message.authorId !== userId && (
@@ -136,7 +136,7 @@ const PrivateChat = (props: any) => {
                                 </div>
                             )}
                             <div className={`flex flex-col space-y-1 ${message.authorId === userId ? "items-end text-right" : "items-start text-left"}`}>
-                                <div className={`text-gray-700 rounded-lg p-2 ${message.authorId === userId ? "bg-blue-500 text-white" : "bg-gray-100"}`}>{message.content}</div>
+                                <div className={`text-gray-700 rounded-lg p-2 break-all ${message.authorId === userId ? "bg-blue-500 text-white" : "bg-gray-100"}`} >{message.content}</div>
                                 <div className="text-gray-500 text-xs">{message.createdTime}</div>
                             </div>
                             {message.authorId === userId && (

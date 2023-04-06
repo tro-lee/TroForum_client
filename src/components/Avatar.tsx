@@ -41,7 +41,7 @@ function Avatar({userId, size = 12, avatarUrl = ""}) {
 
     return (
         <div className={avatarClasses}>
-            <img className="rounded-full cursor-pointer inline" src={ImageIP + account.avatarUrl} alt="avatar"
+            <img className="cursor-pointer rounded-full overflow-hidden mr-4" src={ImageIP + account.avatarUrl} alt="avatar"
                  onClick={() => history.push('/person/' + account.userId)}/>
         </div>
     );

@@ -39,6 +39,14 @@ const PersonTopicPost = (props: any) => {
   return (
     <div>
       {loading ? <Loading /> : <div className="h-8" />}
+      {
+        //如果listData为空
+        listData.length === 0 && (
+            <div className="text-center text-2xl text-gray-500">
+                暂无帖子
+            </div>
+        )
+      }
       {listData.map((item, index) => {
         return (
           <div

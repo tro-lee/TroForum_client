@@ -38,7 +38,7 @@ const Chat = () => {
                 total: res.total,
                 pageNum: res.page_num,
             })
-            setMessages(res.value);
+            setMessages(res.value.reverse());
         })
     }, []);
 
@@ -74,7 +74,7 @@ const Chat = () => {
                     pageNum: res.page_num,
                 })
                 setRequest(true);
-                setMessages(messages => [...res.value, ...messages]);
+                setMessages(messages => [...res.value.reverse(), ...messages]);
             })
         }
     };
@@ -101,9 +101,17 @@ const Chat = () => {
             <SockJsClient
                 url={IP + '/ws'}
                 topics={[`/topic/publicChat`]}
-                onMessage={(res) => {
-                    console.log(res);
-                    setMessages(messages => [...messages, res]);
+                onMessage={() => {
+                    setMessages([]);
+                    getPublicChatPage(0, 6).then(res => {
+                        setPage({
+                            current: res.page,
+                            size: res.size,
+                            total: res.total,
+                            pageNum: res.page_num,
+                        })
+                        setMessages(res.value.reverse());
+                    })
                 }}
                 onConnect={() => setOnline(true)}
                 onDisconnect={() => setOnline(false)}
@@ -119,7 +127,7 @@ const Chat = () => {
                                 <div className="text-gray-800 font-medium ml-2">{message.authorName}</div>
                             </div>
                             <div className="flex flex-col space-y-1">
-                                <div className="text-gray-700">{message.content}</div>
+                                <div className="text-gray-700 break-all">{message.content}</div>
                                 <div className="text-gray-500 text-xs">{message.createdTime}</div>
                             </div>
                         </div>
