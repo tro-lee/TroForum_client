@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import classNames from "classnames";
-import {SelectAccountById} from "@/service/account/account";
+import {selectAccountById} from "@/service/account/account";
 import {history} from "@@/core/history";
 import {ImageIP} from "@/constants";
 
@@ -17,9 +17,7 @@ function Avatar({userId, size = 12, avatarUrl = ""}) {
             });
             return;
         } else {
-            console.log("触发！");
-            SelectAccountById(userId).then(res => {
-                console.log(res.avatarUrl);
+            selectAccountById(userId).then(res => {
                 setAccount({
                     userId: res.userId,
                     userName: res.userName,

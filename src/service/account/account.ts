@@ -8,7 +8,7 @@ export type Account = {
 };
 
 //获取当前用户
-export function PostSelectAccount() {
+export function postSelectAccount() {
     return request<Account>('/api/selectAccount', {
         method: 'POST',
         data: {},
@@ -16,7 +16,7 @@ export function PostSelectAccount() {
 }
 
 //查找特定用户
-export function SelectAccountById(userId: string) {
+export function selectAccountById(userId: string) {
     return request<any>('/api/selectAccountById', {
         method: 'POST',
         data: {
@@ -26,7 +26,7 @@ export function SelectAccountById(userId: string) {
 }
 
 //修改密码
-export function UpdatePassword(password: string) {
+export function updatePassword(password: string) {
     return request<any>('/api/updatePassword', {
         method: 'POST',
         data: {
@@ -36,7 +36,7 @@ export function UpdatePassword(password: string) {
 }
 
 //修改用户id
-export function UpdateUserName(userName: string) {
+export function updateUserName(userName: string) {
     return request<any>('/api/updateUserName', {
         method: 'POST',
         data: {

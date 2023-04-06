@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ProCard} from '@ant-design/pro-components';
-import {PostLogin} from '@/service/common/login';
+import {postLogin} from '@/service/common/login';
 import {history} from '@umijs/max';
 import {Link} from '@umijs/max';
 import './index.css';
@@ -64,7 +64,7 @@ export default function Page() {
                                 className="subButton"
                                 onClick={async () => {
                                     setLoading(true);
-                                    await PostLogin(name, password)
+                                    await postLogin(name, password)
                                         .then(() => {
                                             update();
                                             history.push('/home');

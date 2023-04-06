@@ -1,4 +1,4 @@
-import {PostInsertTopicPost} from '@/service/post/post';
+import {postInsertTopicPost} from '@/service/post/post';
 import {useModel} from '@@/exports';
 import React from "react";
 import {useState } from 'react';
@@ -14,7 +14,7 @@ const TopicPostButton = (props: any) => {
             message.error('内容残缺');
             return;
         }
-        PostInsertTopicPost(userId, values.content, values.title, '暂无')
+        postInsertTopicPost(userId, values.content, values.title, '暂无')
             .then(() => {
                 setUpdate(true);
                 message.success('发帖成功');

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {GetTopicPostPage, TopicPost} from '@/service/post/post';
+import {getTopicPostPage, TopicPost} from '@/service/post/post';
 import './TopicPostBubble.css';
 import {dateDiff} from '@/service/common/time';
 import {history} from '@umijs/max';
@@ -108,7 +108,7 @@ const TopicPostBubble = (props: any) => {
     const updateData = () => {
         setUpdate(false);
         setLoading(true);
-        GetTopicPostPage(1, 9, search).then((it) => {
+        getTopicPostPage(1, 9, search).then((it) => {
             setPage({
                 current: it.page,
                 size: it.size,
@@ -172,7 +172,7 @@ const TopicPostBubble = (props: any) => {
                 }
             } else {
                 setLoading(true);
-                GetTopicPostPage(page.current + 1, page.size, search).then((it) => {
+                getTopicPostPage(page.current + 1, page.size, search).then((it) => {
                     setPage({
                         current: it.page,
                         size: it.size,

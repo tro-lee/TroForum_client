@@ -1,6 +1,6 @@
 import {useModel} from '@@/exports';
 import React, {useState} from 'react';
-import {PostInsertReplyPost} from '@/service/post/post';
+import {postInsertReplyPost} from '@/service/post/post';
 import {message} from 'antd';
 import Avatar from "@/components/Avatar";
 
@@ -75,7 +75,7 @@ const ReplyPostButton = (props: any) => {
                                     message.error('没写内容捏');
                                     return;
                                 }
-                                await PostInsertReplyPost(
+                                await postInsertReplyPost(
                                     userId,
                                     content,
                                     masterData[0],

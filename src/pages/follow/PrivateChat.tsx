@@ -90,7 +90,7 @@ const PrivateChat = (props: any) => {
                     pageNum: res.page_num,
                 })
                 setRequest(true);
-                setMessages(messages => [...res.value, ...messages]);
+                setMessages(messages => [...messages, ...res.value]);
             })
         }
     };
@@ -129,7 +129,7 @@ const PrivateChat = (props: any) => {
                     {messages.slice().map((message, index) => (
                         <div key={index} className="p-2 flex justify-start items-start space-x-2">
                             <div className="flex flex-col">
-                                <Avatar userId={message.authorId} size={20} avatarUrl={message.avatarUrl} />
+                                <Avatar userId={message.authorId} size={20} avatarUrl={message.authorAvatarUrl} />
                             </div>
                             <div className="flex flex-col space-y-1">
                                 <div className="text-gray-700">{message.content}</div>

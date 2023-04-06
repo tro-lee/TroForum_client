@@ -1,4 +1,4 @@
-import {GetTopicPost, TopicPost} from "@/service/post/post";
+import {getTopicPost, TopicPost} from "@/service/post/post";
 import React, {useEffect, useState} from "react";
 import TopicPostTemplate from "@/components/TopicPostTemplate";
 import Loading from "@/components/Loading";
@@ -19,7 +19,7 @@ const TopicPostContent = (props: any) => {
         avatarUrl: ""
     });
     useEffect(() => {
-        GetTopicPost(postId).then(it => {
+        getTopicPost(postId).then(it => {
             setData(it);
             setLoading(false)
         })

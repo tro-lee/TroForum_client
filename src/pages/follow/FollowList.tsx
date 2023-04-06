@@ -64,8 +64,8 @@ const FollowList = (props: any) => {
             <div className="w-full max-w-md">
                 {showFollowing
                     ? followingData.value.map((user: any) => (
-                        <div key={user.userId} className="flex justify-between mb-4">
-                            <div className="flex items-center">
+                        <div key={user.userId} className={`flex justify-between mb-4 p-4 ${user.relationId === relationId ? "border border-blue-600 bg-blue-100" : ""}`}>
+                            <div className={`flex items-center`}>
                                 <Avatar userId={user.userId} avatarUrl={user.avatarUrl}/>
                                 <div>
                                     <div className="font-bold">{user.userName}</div>

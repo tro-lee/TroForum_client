@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ProCard} from '@ant-design/pro-components';
-import {PostRegister} from '@/service/common/login';
+import {postRegister} from '@/service/common/login';
 import {history} from '@umijs/max';
 import {Link} from '@umijs/max';
 import './index.css'
@@ -69,7 +69,7 @@ export default function Page() {
                                                 return;
                                             }
                                             setLoading(true);
-                                            await PostRegister(name, password)
+                                            await postRegister(name, password)
                                                 .then(() => {
                                                         update();
                                                         history.push('/login');

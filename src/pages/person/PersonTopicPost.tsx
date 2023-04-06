@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GetTopicPostPageByAuthor, TopicPost } from '@/service/post/post';
+import { getTopicPostPageByAuthor, TopicPost } from '@/service/post/post';
 import { dateDiff } from '@/service/common/time';
 import { history } from '@umijs/max';
 import { getColorCode } from '@/pages/home/TopicPostShow/TopicPostBubble';
@@ -23,7 +23,7 @@ const PersonTopicPost = (props: any) => {
   //初始获取数据
   useEffect(() => {
     setLoading(true);
-    GetTopicPostPageByAuthor(1, 5, userId).then((it) => {
+    getTopicPostPageByAuthor(1, 5, userId).then((it) => {
       setPage({
         current: it.page,
         size: it.size,
@@ -71,7 +71,7 @@ const PersonTopicPost = (props: any) => {
           onClick={() => {
             if (page.current === index + 1) return;
             setLoading(true);
-            GetTopicPostPageByAuthor(index + 1, 5, userId).then((res) => {
+            getTopicPostPageByAuthor(index + 1, 5, userId).then((res) => {
               setLoading(false);
               // @ts-ignore
               setListData(res.value);

@@ -1,7 +1,7 @@
 //个人信息
 import { useParams } from '@@/exports';
 import React, { useEffect, useState } from 'react';
-import { Account, SelectAccountById } from '@/service/account/account';
+import { Account, selectAccountById } from '@/service/account/account';
 import PersonTopicPost from '@/pages/person/PersonTopicPost';
 import PersonOrFollow from '@/pages/person/PersonOrFollow';
 import BackButton from '@/components/BackButton';
@@ -13,7 +13,7 @@ export default () => {
   const [type, setType] = useState(0);
   useEffect(() => {
     // @ts-ignore
-    SelectAccountById(params.userId).then((res) => {
+    selectAccountById(params.userId).then((res) => {
       setAccount({
         userId: res.userId,
         userName: res.userName,

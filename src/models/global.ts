@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {PostSelectAccount} from "@/service/account/account";
+import {postSelectAccount} from "@/service/account/account";
 
 export default () => {
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState('');
 
     const update = () => {
-        PostSelectAccount().then(res => {
+        postSelectAccount().then(res => {
             setUserName(res.userName);
             setUserId(res.userId);
         }).catch(e => {
@@ -15,7 +15,7 @@ export default () => {
     }
 
     useEffect(() => {
-        PostSelectAccount().then(res => {
+        postSelectAccount().then(res => {
             setUserName(res.userName);
             setUserId(res.userId);
         }).catch(e => {

@@ -27,7 +27,7 @@ export type ReplyPost = {
   avatarUrl: string;
 };
 
-export function PostInsertTopicPost(
+export function postInsertTopicPost(
   authorId: string,
   content: string,
   title: string,
@@ -44,7 +44,7 @@ export function PostInsertTopicPost(
   });
 }
 
-export function PostInsertReplyPost(
+export function postInsertReplyPost(
   authorId: string,
   content: string,
   master: string,
@@ -61,7 +61,7 @@ export function PostInsertReplyPost(
   });
 }
 
-export function GetTopicPostPage(
+export function getTopicPostPage(
   current: number = 0,
   size: number = 5,
   keyword: string = '',
@@ -76,7 +76,7 @@ export function GetTopicPostPage(
   });
 }
 
-export function GetTopicPostPageByAuthor(
+export function getTopicPostPageByAuthor(
   current: number = 0,
   size: number = 5,
   authorId: string = '',
@@ -106,7 +106,7 @@ export function GetReplyPostPage(
   });
 }
 
-export function GetTopicPost(postId: string) {
+export function getTopicPost(postId: string) {
   return request<TopicPost>('/api/post/getTopicPost', {
     method: 'POST',
     data: {
