@@ -4,6 +4,7 @@ import {checkRelation, follow} from "@/service/relation/relation";
 import {message} from "antd";
 import Loading from "@/components/Loading";
 import {searchPoems} from "@/components/sentence";
+import Avatar from "@/components/Avatar";
 
 const SearchBox = (props: any) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -65,11 +66,7 @@ const SearchBox = (props: any) => {
                                         className="flex items-center w-full px-4 py-2 hover:bg-gray-100"
                                         onClick={() => handleFollow(user.userId)}
                                     >
-                                        <img
-                                            src={`https://picsum.photos/50/50?random=${user.userId}`}
-                                            alt={user.userName}
-                                            className="w-10 h-10 rounded-full mr-4"
-                                        />
+                                        <Avatar userId={user.userId} avatarUrl={user.avatarUrl}/>
                                         <div className="flex-1">
                                             <div className="font-bold">{user.userName}</div>
                                             <div className="text-gray-500">@{user.userId}</div>

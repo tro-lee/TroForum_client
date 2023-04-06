@@ -97,7 +97,7 @@ const FollowList = (props: any) => {
                         </div>
                     ))
                     : followerData.value.map((user: any) => (
-                        <div key={user.userId} className="flex items-center mb-4">
+                        <div key={user.userId} className={`flex items-center mb-4 p-4 ${user.relationId === relationId ? "border border-blue-600 bg-blue-100" : ""}`}>
                             <Avatar userId={user.userId} avatarUrl={user.avatarUrl}/>
                             <div>
                                 <div className="font-bold">{user.userName}</div>

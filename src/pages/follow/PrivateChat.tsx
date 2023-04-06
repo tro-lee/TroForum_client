@@ -5,6 +5,7 @@ import {IP} from "@/constants";
 import {Message} from "@/service/ApiType";
 import SockJsClient from 'react-stomp'
 import Avatar from "@/components/Avatar";
+import {useModel} from "@@/exports";
 
 const PrivateChat = (props: any) => {
     /*
@@ -13,6 +14,7 @@ const PrivateChat = (props: any) => {
     * 3.发送消息
     * 4.滚轮刷新
      */
+    const {userId} = useModel('global');
     const {relationId, update, setUpdate} = props;
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
@@ -113,7 +115,7 @@ const PrivateChat = (props: any) => {
     }
 
     return (
-        <div className="mt-10 w-full h-96 p-4 bg-white rounded-lg shadow-lg border border-gray-300">
+        <div className="w-full h-full p-4 bg-white rounded-lg shadow-lg border border-gray-300">
             <SockJsClient
                 url={IP + '/ws'}
                 topics={[`/queue/privateChat/${relationId.split("-").sort().join("-")}`]}
@@ -124,17 +126,24 @@ const PrivateChat = (props: any) => {
                 onDisconnect={() => setOnline(false)}
             />
 
-            <div className="flex flex-col h-full">
-                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
-                    {messages.slice().map((message, index) => (
-                        <div key={index} className="p-2 flex justify-start items-start space-x-2">
-                            <div className="flex flex-col">
-                                <Avatar userId={message.authorId} size={20} avatarUrl={message.authorAvatarUrl} />
-                            </div>
-                            <div className="flex flex-col space-y-1">
-                                <div className="text-gray-700">{message.content}</div>
+            <div className="flex flex-col space-y-4 h-96">
+                <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: 'gray lightgray' }}  ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
+                    {messages.map((message, index) => (
+                        <div key={index} className={`p-2 flex space-x-2 ${message.authorId === userId ? "justify-end items-end" : "justify-start items-start"}`}>
+                            {message.authorId !== userId && (
+                                <div className="flex flex-col">
+                                    <Avatar userId={message.authorId} size={20} avatarUrl={message.authorAvatarUrl} />
+                                </div>
+                            )}
+                            <div className={`flex flex-col space-y-1 ${message.authorId === userId ? "items-end text-right" : "items-start text-left"}`}>
+                                <div className={`text-gray-700 rounded-lg p-2 ${message.authorId === userId ? "bg-blue-500 text-white" : "bg-gray-100"}`}>{message.content}</div>
                                 <div className="text-gray-500 text-xs">{message.createdTime}</div>
                             </div>
+                            {message.authorId === userId && (
+                                <div className="flex flex-col">
+                                    <Avatar userId={message.authorId} size={20} avatarUrl={message.authorAvatarUrl} />
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
