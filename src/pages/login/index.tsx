@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ProCard} from '@ant-design/pro-components';
 import {postLogin} from '@/service/common/login';
 import {history} from '@umijs/max';
@@ -8,6 +8,7 @@ import {useModel} from "@@/exports";
 import Loading from "@/components/Loading";
 import VerifyCode from "@/components/VerifyCode";
 import {message} from "antd";
+import RecordInfo from "@/components/RecordInfo";
 
 export default function Page() {
     const [name, setName] = useState('');
@@ -89,6 +90,7 @@ export default function Page() {
                     </form>
                 </ProCard>
             </div>
+            <RecordInfo/>
         </div>
     );
 }

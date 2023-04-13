@@ -4,7 +4,6 @@ import './TopicPostBubble.css';
 import {dateDiff} from '@/service/common/time';
 import {history} from '@umijs/max';
 import {searchPoems} from "@/components/sentence";
-import Avatar from "@/components/Avatar";
 
 export function getColorCode(num: number) {
     switch (num) {
@@ -278,9 +277,6 @@ const TopicPostBubble = (props: any) => {
                                 >
                                     <div className="flex justify-between items-center">
                                         <div className="flex items-center">
-                                            <div className="w-10 mr-2">
-                                                <Avatar userId={item.authorId} avatarUrl={item.avatarUrl}/>
-                                            </div>
                                             <div className="text-gray-400 text-2xl font-bold">
                                                 {item.userName}
                                             </div>

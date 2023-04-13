@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b25b0b12-a18e-4ad7-bacf-0815fe70e9de" name="master" url="http://ruibest.club">
+        <fileTransfer accessType="SFTP" host="ruibest.club" port="22" sshConfigId="fcd7b873-e348-42d4-b852-129a68db3214" sshConfig="ubuntu@ruibest.club:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

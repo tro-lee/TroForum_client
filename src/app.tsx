@@ -19,7 +19,7 @@ export const layout = () => {
         layout: 'side',
         //菜单标题下方区域
         menuExtraRender: () => {
-            return;
+            return false;
         },
         rightRender: () => {
             return false;

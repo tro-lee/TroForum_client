@@ -8,14 +8,32 @@ import {message} from "antd";
 import {useModel} from "@@/exports";
 import Loading from "@/components/Loading";
 import VerifyCode from "@/components/VerifyCode";
+import RecordInfo from "@/components/RecordInfo";
+import zxcvbn from 'zxcvbn';
+import PasswordStrengthIndicator from "@/pages/login/PasswordStrengthIndicator";
+
 
 export default function Page() {
+
+    function getPasswordStrength(password) {
+        const result = zxcvbn(password);
+        const score = result.score;
+        if (score === 0) {
+            return 1; // password is too weak
+        } else if (score <= 2) {
+            return 2; // password is medium strength
+        } else {
+            return 3; // password is strong
+        }
+    }
+
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [againPassword, setAgainPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const {update} = useModel('global');
     const [verify, setVerify] = useState(false);
+    const [passwordStrength, setPasswordStrength] = useState(0);
 
     return (
         <div className="min-h-screen min-w-screen bg-red-300">
@@ -48,8 +66,12 @@ export default function Page() {
                                    className="in"
                                    placeholder="•••••••••"
                                    value={password}
-                                   onChange={e => setPassword(e.target.value)}
+                                   onChange={e => {
+                                       setPassword(e.target.value);
+                                       setPasswordStrength(getPasswordStrength(e.target.value));
+                                   }}
                                    required/>
+                            {password && (<PasswordStrengthIndicator passwordStrength={passwordStrength}/>)}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="password"
@@ -75,6 +97,10 @@ export default function Page() {
                                                 message.error("密码不一致");
                                                 return;
                                             }
+                                            if (passwordStrength === 1) {
+                                                message.error("密码强度低")
+                                                return;
+                                            }
                                             setLoading(true);
                                             await postRegister(name, password)
                                                 .then(() => {
@@ -92,6 +118,7 @@ export default function Page() {
                     </form>
                 </ProCard>
             </div>
+            <RecordInfo/>
         </div>
     );
 }

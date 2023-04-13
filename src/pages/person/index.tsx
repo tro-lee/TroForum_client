@@ -2,6 +2,7 @@ import React from 'react';
 import {useModel} from '@@/exports';
 import PersonTopicPost from '@/pages/person/PersonTopicPost';
 import Avatar from "@/components/Avatar";
+import {SystemMessage} from "@/components/SystemMessage";
 
 export default () => {
     //获取当前id
@@ -15,6 +16,7 @@ export default () => {
             <div className="flex-grow">
                 <PersonTopicPost userId={userId} />
             </div>
+            <SystemMessage/>
         </div>
     );
 };

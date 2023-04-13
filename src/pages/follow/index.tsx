@@ -2,6 +2,7 @@ import FollowList from "@/pages/follow/FollowList";
 import React, {useState} from "react";
 import SearchAccount from "@/pages/follow/SearchAccount";
 import PrivateChat from "@/pages/follow/PrivateChat";
+import {SystemMessage} from "@/components/SystemMessage";
 
 export default () => {
     const [update, setUpdate] = useState(false);
@@ -16,6 +17,7 @@ export default () => {
             <div className="w-1/2">
                 {relationId !== '' && <PrivateChat relationId={relationId} update={updateChat} setUpdate={setUpdateChat}/>}
             </div>
+            <SystemMessage/>
         </div>
     )
 }

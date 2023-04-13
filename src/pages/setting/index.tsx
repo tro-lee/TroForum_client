@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import Avatar from "@/components/Avatar";
+import React from 'react';
 import {UpdatePassword} from "@/pages/setting/UpdatePassword";
 import {useModel} from "@@/exports";
 import {UpdateUserName} from "@/pages/setting/UpdateUserName";
 import {UpdateAvatar} from "@/pages/setting/UpdateAvatar";
+import {SystemMessage} from "@/components/SystemMessage";
 
 export default function Page() {
     const user = useModel('global');
@@ -20,6 +20,7 @@ export default function Page() {
                 <UpdateUserName/>
                 <UpdatePassword/>
             </div>
+            <SystemMessage/>
         </div>
     );
 }
