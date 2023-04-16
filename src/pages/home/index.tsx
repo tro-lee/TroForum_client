@@ -7,6 +7,7 @@ import Chat from '@/pages/home/Chat/Chat';
 import NoticeBoard from '@/pages/home/Notices/Notices';
 import RecordInfo from "@/components/RecordInfo";
 import {SystemMessage} from "@/components/SystemMessage";
+import Notice2Board from "@/pages/home/Notices/Notices2";
 
 const HomePage: any = () => {
     const [update, setUpdate] = useState(false);
@@ -29,6 +30,8 @@ const HomePage: any = () => {
                 <div className="w-1/5"/>
                 <div className="w-2/5 mt-4">
                     <NoticeBoard/>
+                    <div className="mb-10"/>
+                    <Notice2Board/>
                     <div className="mb-10"/>
                     <Chat/>
                 </div>

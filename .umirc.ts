@@ -7,7 +7,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: 'TroTro的论坛',
+    title: '作诗小论坛',
   },
   extraPostCSSPlugins: [require('tailwindcss')],
   routes: [
@@ -16,7 +16,7 @@ export default defineConfig({
       redirect: '/home',
     },
     {
-      name: '主题广场',
+      name: '赏诗',
       path: '/home',
       component: './home',
     },
@@ -39,12 +39,12 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
-      name: '关注系统',
+      name: '关注',
       path: '/follow',
       component: './follow',
     },
     {
-      name: '个人中心',
+      name: '个人',
       path: '/person',
       component: './person',
     },

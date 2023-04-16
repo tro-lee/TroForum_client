@@ -17,12 +17,12 @@ const TopicPostButton = (props: any) => {
         postInsertTopicPost(userId, values.content, values.title, '暂无')
             .then(() => {
                 setUpdate(true);
-                message.success('发帖成功');
+                message.success('发布成功');
                 setShowModal(false);
             })
             .catch((error) => {
                 console.log(error);
-                message.error('发帖失败');
+                message.error('发布失败');
             });
     }
 
@@ -33,7 +33,7 @@ const TopicPostButton = (props: any) => {
                 className="mb-2 text-red-400 text-lg font-bold border border-red-400 rounded-md px-4 py-2 hover:bg-red-400 hover:text-white transition-colors duration-300"
                 onClick={() => setShowModal(true)}
             >
-                发帖
+                写下或讨论诗
             </button>
 
             <div
@@ -41,7 +41,7 @@ const TopicPostButton = (props: any) => {
                     showModal ? 'opacity-90 visible' : 'opacity-0 invisible'
                 } transition-opacity transition-visible duration-300`}
             >
-                <h2 className="text-2xl font-bold mb-6">我要发帖~</h2>
+                <h2 className="text-2xl font-bold mb-6">写下或讨论一首诗</h2>
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();

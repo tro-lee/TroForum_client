@@ -118,6 +118,7 @@ const Chat = () => {
             />
 
             <div className="flex flex-col h-full">
+                <span className="font-black text-xl text-sky-600">在线讨论</span>
                 <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef}
                      onScroll={throttle(scroll, 10)}>
                     {messages.slice().reverse().map((message, index) => (

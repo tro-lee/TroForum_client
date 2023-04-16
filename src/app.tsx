@@ -14,7 +14,7 @@ export async function getInitialState() {
 
 export const layout = () => {
     return {
-        title: 'TroTro的论坛',
+        title: '作诗小论坛',
         logo: 'https://gitcode.net/TroTro_/image/-/raw/master/touxiang.jpg',
         layout: 'side',
         //菜单标题下方区域
