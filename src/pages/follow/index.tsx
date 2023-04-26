@@ -9,12 +9,12 @@ export default () => {
     const [updateChat, setUpdateChat] = useState(false);
     const [relationId, setRelationId] = useState('')
     return (
-        <div className="flex justify-between">
-            <div className="w-1/3">
+        <div className="flex justify-between w-full h-screen ml-20 mr-20">
+            <div className="w-1/3 ml-20 mr-20">
                 <SearchAccount setUpdate={setUpdate}/>
                 <FollowList update={update} setUpdate={setUpdate} relationId={relationId} setRelationId={setRelationId} setUpdateChat={setUpdateChat}/>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 ml-20 mr-20">
                 {relationId !== '' && <PrivateChat relationId={relationId} update={updateChat} setUpdate={setUpdateChat}/>}
             </div>
             <SystemMessage/>

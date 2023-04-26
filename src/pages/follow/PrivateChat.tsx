@@ -126,7 +126,7 @@ const PrivateChat = (props: any) => {
                 onDisconnect={() => setOnline(false)}
             />
 
-            <div className="flex flex-col space-y-4 h-96">
+            <div className="flex flex-col space-y-4 h-screen">
                 <div className="flex-1 flex flex-col-reverse space-y-4 overflow-y-auto" ref={chatBoxRef} onScroll={throttle(scroll, 10)}>
                     {messages.map((message, index) => (
                         <div key={index} className={`p-2 flex space-x-2 ${message.authorId === userId ? "justify-end items-end" : "justify-start items-start"}`}>
@@ -148,7 +148,7 @@ const PrivateChat = (props: any) => {
                     ))}
                 </div>
 
-                <div className="p-2 flex">
+                <div className="p-2 flex relative bottom-0">
                     <input
                         type="text"
                         value={inputValue}

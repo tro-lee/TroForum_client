@@ -9,7 +9,7 @@ export default () => {
     const {userId} = useModel('global');
 
     return (
-        <div className="flex flex-row items-center bg-gray-100 border border-gray-300 rounded-lg p-4">
+        <div className="flex flex-row items-center bg-gray-100 border border-gray-300 rounded-lg p-4 w-auto h-screen ml-40 mr-40">
             <div className="w-32 h-32 flex justify-center items-center mr-4">
                 <Avatar userId={userId} size={48} />
             </div>

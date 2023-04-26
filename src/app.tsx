@@ -16,7 +16,7 @@ export const layout = () => {
     return {
         title: '作诗小论坛',
         logo: 'https://gitcode.net/TroTro_/image/-/raw/master/touxiang.jpg',
-        layout: 'side',
+        layout: 'top',
         //菜单标题下方区域
         menuExtraRender: () => {
             return false;
@@ -62,7 +62,7 @@ export const request: RequestConfig = {
                     break;
                 case 502:
                     message.error('不小心进入神秘领域');
-                    history.push('/home');
+                    history.push('/poem');
                     break;
             }
             return response.data;

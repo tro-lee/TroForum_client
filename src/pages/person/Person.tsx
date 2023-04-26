@@ -28,7 +28,7 @@ export default () => {
   }, []);
   console.log(account);
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between w-auto h-screen ml-20 mr-20">
       <div className="w-1/3">
         <BackButton />
         <div>

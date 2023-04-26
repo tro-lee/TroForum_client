@@ -13,7 +13,7 @@ const HomePage: any = () => {
     const [update, setUpdate] = useState(false);
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col w-auto h-screen ml-20 mr-20">
             <div className="flex justify-between items-center border-b-2 border-gray-300">
                 <div className="font-bold text-xl">
                     {sentence[Math.floor(Math.random() * sentence.length)]}

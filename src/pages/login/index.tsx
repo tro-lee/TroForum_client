@@ -78,7 +78,7 @@ export default function Page() {
                                         await postLogin(name, password)
                                             .then(() => {
                                                 update();
-                                                history.push('/home');
+                                                history.push('/poem');
                                             })
                                             .catch(() => setLoading(false));
                                     }
