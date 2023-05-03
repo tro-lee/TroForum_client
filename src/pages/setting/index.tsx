@@ -4,6 +4,7 @@ import {useModel} from "@@/exports";
 import {UpdateUserName} from "@/pages/setting/UpdateUserName";
 import {UpdateAvatar} from "@/pages/setting/UpdateAvatar";
 import {SystemMessage} from "@/components/SystemMessage";
+import ExitButton from "@/components/ExitButton";
 
 export default function Page() {
     const user = useModel('global');
@@ -19,6 +20,7 @@ export default function Page() {
                 <UpdateAvatar/>
                 <UpdateUserName/>
                 <UpdatePassword/>
+                <ExitButton key="ExitButton"/>
             </div>
             <SystemMessage/>
         </div>
